@@ -82,6 +82,12 @@
     <p>(click anywhere to help the count)</p>
   </section>
 
+  <section class="counter">
+    <h2>Doomsday Clock</h2>
+    <b id="doom">--</b>
+    <p>until evilass.app is ripped from my cold, dead hands (2027-10-28)</p>
+  </section>
+
   <section id="oath">
     <h2>The Evil Oath</h2>
     <p id="oathText">Press the button, mortal.</p>
@@ -125,6 +131,19 @@
     for (let i = 0; i < 80; i++) spawn(innerWidth/2, innerHeight/2, true);
     document.getElementById('oath').scrollIntoView();
   };
+
+  const doom = document.getElementById('doom');
+  const deadline = new Date('2027-10-28T00:00:00+10:30').getTime();
+  function tick(){
+    let s = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
+    if (s === 0) { doom.textContent = 'IT IS DONE 💀'; return; }
+    const d = Math.floor(s/86400); s %= 86400;
+    const h = Math.floor(s/3600); s %= 3600;
+    const m = Math.floor(s/60); s %= 60;
+    const p = n => String(n).padStart(2,'0');
+    doom.textContent = `${d}d ${p(h)}h ${p(m)}m ${p(s)}s`;
+  }
+  tick(); setInterval(tick, 1000);
 
   // ember particles
   const c = document.getElementById('embers'), g = c.getContext('2d');
