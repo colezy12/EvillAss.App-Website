@@ -33,6 +33,26 @@
     transition:.2s; text-transform:uppercase; letter-spacing:.1em;
   }
   .btn:hover { transform:scale(1.08) rotate(-2deg); box-shadow:0 0 50px var(--red); }
+  .header-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:0 1rem; }
+  .header-actions .btn { margin-top:2.5rem; }
+  .flash-note { margin-top:1rem; color:#ffb3ba; font-size:.9rem; }
+  body.light-theme {
+    background:radial-gradient(ellipse at 50% 0%, #fff 0%, #ffe6b8 48%, #f8c3a5 100%) fixed;
+    color:#310811;
+  }
+  body.light-theme h2 { text-shadow:0 1px 5px #c84a4a66; }
+  body.light-theme .card, body.light-theme .photo { background:#fff8e9ed; border-color:#c87965; }
+  body.light-theme .card p, body.light-theme .photo figcaption { color:#45131b; }
+  body.light-theme .card h3 { color:#ad071b; }
+  body.light-theme .tag, body.light-theme #schemeText, body.light-theme #oath p { color:#751322; }
+  body.light-theme footer, body.light-theme .flash-note { color:#772735; }
+  body.light-theme .photo img { filter:brightness(.9) saturate(.9); }
+  body.light-theme .photo:hover img { filter:brightness(1) saturate(1.1); }
+  body.flashbang::after {
+    content:""; position:fixed; inset:0; z-index:9999; pointer-events:none; background:#fff;
+    animation:flashbang .32s ease-out forwards;
+  }
+  @keyframes flashbang { from { opacity:.96; } to { opacity:0; } }
   section { max-width:1000px; margin:0 auto; padding:4rem 1.5rem; }
   h2 { font-family:'Creepster',cursive; font-weight:400; font-size:2.6rem; color:var(--red); text-align:center; margin-bottom:2rem; text-shadow:0 0 15px #a00; }
   .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem; }
@@ -40,6 +60,13 @@
   .card:hover { transform:translateY(-8px) rotate(1deg); border-color:var(--red); box-shadow:0 0 30px #f002; }
   .card .ico { font-size:2.5rem; }
   .card h3 { color:#ff5a68; margin:.5rem 0; }
+  .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.25rem; }
+  .photo { overflow:hidden; background:#1a0006cc; border:1px solid #6a0010; border-radius:8px; }
+  .photo img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; filter:brightness(.72) saturate(.8); transition:transform .35s,filter .35s; }
+  .photo:hover img { transform:scale(1.06); filter:brightness(.95) saturate(1.1); }
+  .photo figcaption { padding:1rem; color:#ffb3ba; }
+  #scheme .tag, .scheme-action { text-align:center; }
+  #schemeText { margin:1.5rem auto 0; max-width:650px; min-height:3rem; text-align:center; font-size:1.2rem; color:#ffb3ba; }
   .counter { text-align:center; font-size:1.2rem; }
   .counter b { display:block; font-family:'Creepster'; font-size:4rem; color:var(--red); text-shadow:0 0 20px var(--red); }
   #oath { text-align:center; }
@@ -53,6 +80,10 @@
   }
   body.shake { animation:shake .4s; }
   @keyframes shake { 25% { transform:translate(-8px,4px); } 75% { transform:translate(8px,-4px); } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+    body.flashbang::after { animation:none; display:none; }
+  }
 </style>
 </head>
 <body>
@@ -62,7 +93,11 @@
   <div class="horns">😈</div>
   <h1>EVIL ASS APP</h1>
   <p class="tag">Pure malice. Zero apologies. Maximum ass.</p>
-  <button class="btn" id="summon">Summon Evil</button>
+  <div class="header-actions">
+    <button class="btn" id="summon">Summon Evil</button>
+    <button class="btn" id="lightTheme" type="button" aria-pressed="false" aria-label="Toggle evil light theme with a brief white flash">Evil Light Mode (flash!)</button>
+  </div>
+  <p class="flash-note">The light toggle flashes once; the flash is disabled if reduced motion is enabled.</p>
 </header>
 
 <main>
@@ -73,7 +108,36 @@
       <div class="card"><div class="ico">🦇</div><h3>Dark Mode Only</h3><p>Light mode was sacrificed at dawn. There is no toggle.</p></div>
       <div class="card"><div class="ico">💀</div><h3>Soul-Friendly</h3><p>We only take the ones you weren't using anyway.</p></div>
       <div class="card"><div class="ico">👑</div><h3>Villain Tier</h3><p>Monologues included. Cackling is mandatory.</p></div>
+      <div class="card"><div class="ico">🕯️</div><h3>Haunted Notifications</h3><p>Our reminders arrive precisely when you least expect them.</p></div>
+      <div class="card"><div class="ico">🧪</div><h3>Mad Scientist Mode</h3><p>Mix questionable ideas in a lab coat. Safety goggles optional; evil grin required.</p></div>
+      <div class="card"><div class="ico">🗝️</div><h3>Secret Lair Sync</h3><p>Your plans are safe in a vault guarded by one extremely suspicious raven.</p></div>
+      <div class="card"><div class="ico">🌩️</div><h3>Dramatic Entrance</h3><p>Thunderous vibes, ominous timing, and absolutely no explanation.</p></div>
     </div>
+  </section>
+
+  <section id="evil-gallery">
+    <h2>Evidence From The Evil Photo Vault</h2>
+    <div class="gallery">
+      <figure class="photo">
+        <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Tall trees packed closely together in a shadowy forest" loading="lazy" decoding="async">
+        <figcaption>The woods have been expecting you.</figcaption>
+      </figure>
+      <figure class="photo">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="A mountain beneath a star-filled night sky" loading="lazy" decoding="async">
+        <figcaption>Excellent lair location. Terrible cell service.</figcaption>
+      </figure>
+      <figure class="photo">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="A dramatic landscape stretching toward distant mountains" loading="lazy" decoding="async">
+        <figcaption>A perfectly normal place to plot world domination.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="scheme">
+    <h2>Highly Unnecessary Evil Plans</h2>
+    <p class="tag">Press for a harmlessly petty scheme. No actual villainy required.</p>
+    <p id="schemeText" aria-live="polite">Your next questionable idea awaits.</p>
+    <div class="scheme-action"><button class="btn" id="schemeBtn">Generate A Scheme</button></div>
   </section>
 
   <section class="counter">
@@ -95,7 +159,7 @@
   </section>
 </main>
 
-<footer>© evilass.app — all rights reversed 😈</footer>
+<footer>© evilass.app — all rights DESTROYEDDDD!!!!!!! AHAHAHHAHAHA 😈</footer>
 
 <script>
   const oaths = [
@@ -114,6 +178,32 @@
   document.getElementById('oathBtn').onclick = () => {
     oi = (oi + 1 + Math.floor(Math.random()*(oaths.length-1))) % oaths.length;
     oathText.textContent = '😈 ' + oaths[oi];
+  };
+
+  const schemes = [
+    "Replace every meeting's title with 'A Mysterious Gathering'.",
+    "Leave a tiny, tasteful rubber duck in the break room.",
+    "Change your own desktop wallpaper to a suspiciously persuasive potato.",
+    "Put googly eyes on the office stapler. It knows what it did.",
+    "Reply-all with a single, perfectly timed 'mwahaha'.",
+    "Hide a handwritten compliment where a friend will find it."
+  ];
+  document.getElementById('schemeBtn').onclick = () => {
+    const scheme = schemes[Math.floor(Math.random() * schemes.length)];
+    document.getElementById('schemeText').textContent = '😈 ' + scheme;
+  };
+
+  const lightThemeButton = document.getElementById('lightTheme');
+  lightThemeButton.onclick = () => {
+    const isLight = document.body.classList.toggle('light-theme');
+    lightThemeButton.setAttribute('aria-pressed', String(isLight));
+    lightThemeButton.textContent = isLight ? 'Return To Darkness' : 'Evil Light Mode (flash!)';
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.body.classList.remove('flashbang');
+      void document.body.offsetWidth;
+      document.body.classList.add('flashbang');
+      setTimeout(() => document.body.classList.remove('flashbang'), 350);
+    }
   };
 
   let souls = 0;
